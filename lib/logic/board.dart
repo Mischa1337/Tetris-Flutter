@@ -41,14 +41,10 @@ class Board {
   // Friert den aktuellen Stein ein (schreibt ihn dauerhaft ins Board)
   void freeze(Shape shape) {
     final colorIndex = shape.type.index + 1;
-    tetrominoOffsets[shape.type]![shape.rotation].forEach(
-      (offset) =>
-          cells[_index(
-                shape.anchorRow + offset.$2,
-                shape.anchorCol + offset.$1,
-              )] =
-              colorIndex,
-    );
+    for (var offset in tetrominoOffsets[shape.type]![shape.rotation]) {
+      cells[_index(shape.anchorRow + offset.$2, shape.anchorCol + offset.$1)] =
+          colorIndex;
+    }
   }
 
   // Löscht alle vollen Zeilen, schiebt den Rest nach unten
