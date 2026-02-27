@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris_app/screens/game_screen.dart';
+import 'package:tetris_app/screens/home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -23,7 +23,7 @@ class _LoginScreenState extends State<LoginScreen> {
       final name = _nameController.text.trim();
       Navigator.of(
         context,
-      ).push(MaterialPageRoute(builder: (_) => GameScreen(playerName: name)));
+      ).push(MaterialPageRoute(builder: (_) => HomeScreen(playerName: name)));
     }
   }
 
