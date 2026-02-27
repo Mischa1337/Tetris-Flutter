@@ -5,7 +5,8 @@ import 'package:tetris_app/widgets/next_piece_widget.dart';
 
 // StatefulWidget: hat einen veränderbaren State (den GameController)
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key});
+  const GameScreen({super.key, required this.playerName});
+  final String playerName;
 
   @override
   State<GameScreen> createState() => _GameScreenState();

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris_app/screens/game_screen.dart';
+import 'package:tetris_app/screens/login_screen.dart';
 
 void main() {
   runApp(const TetrisApp());
@@ -14,7 +14,7 @@ class TetrisApp extends StatelessWidget {
       title: 'Tetris',
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(), // dunkles Theme passt zu Tetris
-      home: const GameScreen(),
+      home: const LoginScreen(),
     );
   }
 }
