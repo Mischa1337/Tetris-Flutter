@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_app/screens/game_screen.dart';
+import 'package:tetris_app/logic/score_board.dart';
+import 'package:tetris_app/screens/highscore_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String playerName;
+  final ScoreBoard scoreBoard;
 
-  const HomeScreen({super.key, required this.playerName});
+  const HomeScreen({
+    super.key,
+    required this.playerName,
+    required this.scoreBoard,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +42,10 @@ class HomeScreen extends StatelessWidget {
                   onPressed: () {
                     Navigator.of(context).push(
                       MaterialPageRoute(
-                        builder: (_) => GameScreen(playerName: playerName),
+                        builder: (_) => GameScreen(
+                          playerName: playerName,
+                          scoreBoard: scoreBoard,
+                        ),
                       ),
                     );
                   },
@@ -47,7 +57,11 @@ class HomeScreen extends StatelessWidget {
                 width: double.infinity,
                 child: OutlinedButton(
                   onPressed: () {
-                    // Highscore-Screen kommt später
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => HighscoreScreen(scoreBoard: scoreBoard),
+                      ),
+                    );
                   },
                   child: const Text('Highscore'),
                 ),

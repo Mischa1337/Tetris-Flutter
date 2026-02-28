@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_app/logic/game_controller.dart';
+import 'package:tetris_app/logic/score_board.dart';
 import 'package:tetris_app/widgets/board_widget.dart';
 import 'package:tetris_app/widgets/next_piece_widget.dart';
 
 // StatefulWidget: hat einen veränderbaren State (den GameController)
 class GameScreen extends StatefulWidget {
-  const GameScreen({super.key, required this.playerName});
+  const GameScreen({
+    super.key,
+    required this.playerName,
+    required this.scoreBoard,
+  });
   final String playerName;
+  final ScoreBoard scoreBoard;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -15,12 +21,19 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   // Der Controller lebt hier — genau so lang wie der Screen
   final GameController _ctrl = GameController();
+  bool _scoreSaved = false;
 
   @override
   void initState() {
     super.initState();
     // onUpdate: nach jedem Tick → setState() → Flutter zeichnet neu
-    _ctrl.onUpdate = () => setState(() {});
+    _ctrl.onUpdate = () {
+      if (_ctrl.isGameOver && !_scoreSaved) {
+        _scoreSaved = true;
+        widget.scoreBoard.add(_ctrl.score, _ctrl.linesCleared);
+      }
+      setState(() {});
+    };
     _ctrl.start();
   }
 
@@ -101,6 +114,7 @@ class _GameScreenState extends State<GameScreen> {
                     const SizedBox(height: 8),
                     ElevatedButton(
                       onPressed: () => setState(() {
+                        _scoreSaved = false;
                         _ctrl.reset();
                         _ctrl.start();
                       }),
