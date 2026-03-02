@@ -83,25 +83,30 @@ class _GameScreenState extends State<GameScreen> {
                       NextPieceWidget(nextShape: _ctrl.nextShape),
                     ],
                   ),
+                  IconButton(
+                    icon: Icon(
+                      _ctrl.isPaused ? Icons.play_arrow : Icons.pause,
+                      color: Colors.white,
+                      size: 40,
+                    ),
+                    onPressed: () => setState(() {
+                      _ctrl.isPaused ? _ctrl.resume() : _ctrl.pause();
+                    }),
+                  ),
                 ],
               ),
             ),
 
             // ── Spielfeld + Seitenleiste ──────────────────────
             Expanded(
-              child: Row(
-                children: [
-                  // Das Board nimmt den meisten Platz ein
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.all(4),
-                      child: BoardWidget(
-                        board: _ctrl.board,
-                        currentShape: _ctrl.currentShape,
-                      ),
-                    ),
+              child: Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(4),
+                  child: BoardWidget(
+                    board: _ctrl.board,
+                    currentShape: _ctrl.currentShape,
                   ),
-                ],
+                ),
               ),
             ),
 
@@ -116,26 +121,31 @@ class _GameScreenState extends State<GameScreen> {
   // Steuerleiste am unteren Rand
   Widget _buildControls() {
     return Padding(
-      padding: const EdgeInsets.only(bottom: 8),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          _controlButton(Icons.arrow_left, _ctrl.moveLeft),
-          _controlButton(Icons.rotate_right, _ctrl.rotate),
-          _controlButton(Icons.arrow_downward, _ctrl.drop),
-          _controlButton(Icons.arrow_right, _ctrl.moveRight),
-          // Pause/Resume Button
-          IconButton(
-            icon: Icon(
-              _ctrl.isPaused ? Icons.play_arrow : Icons.pause,
-              color: Colors.white,
-              size: 40,
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      child: SizedBox(
+        height: 120,
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Linke Spalte - Links
+            Expanded(child: _controlButton(Icons.arrow_left, _ctrl.moveLeft)),
+            // Mittlere Spalte - oben Rotieren, unten Drop
+            Expanded(
+              child: Column(
+                children: [
+                  Expanded(
+                    child: _controlButton(Icons.rotate_right, _ctrl.rotate),
+                  ),
+                  Expanded(
+                    child: _controlButton(Icons.arrow_downward, _ctrl.drop),
+                  ),
+                ],
+              ),
             ),
-            onPressed: () => setState(() {
-              _ctrl.isPaused ? _ctrl.resume() : _ctrl.pause();
-            }),
-          ),
-        ],
+            // Rechte Spalte - Rechts
+            Expanded(child: _controlButton(Icons.arrow_right, _ctrl.moveRight)),
+          ],
+        ),
       ),
     );
   }

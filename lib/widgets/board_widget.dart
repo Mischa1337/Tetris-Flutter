@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:tetris_app/logic/board.dart';
 import 'package:tetris_app/logic/shape.dart';
 import 'package:tetris_app/logic/tetromino_type.dart';
@@ -29,38 +30,44 @@ class BoardWidget extends StatelessWidget {
     // Welche Board-Indizes belegt der aktive Stein gerade?
     final activeIndices = board.indicesOf(currentShape).toSet();
 
-    return AspectRatio(
-      aspectRatio: boardWidth / boardHeight,
-      child: GridView.builder(
-        physics: const NeverScrollableScrollPhysics(), // kein Scrollen
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: boardWidth,
-        ),
-        itemCount: boardWidth * boardHeight,
-        itemBuilder: (context, index) {
-          final Color color;
-
-          if (activeIndices.contains(index)) {
-            // Aktiver, fallender Stein
-            color = tetrominoColors[currentShape.type]!;
-          } else if (board.cells[index] != 0) {
-            // Eingefrorener Stein — Farbe aus dem gespeicherten Index
-            final type = TetrominoType.values[board.cells[index] - 1];
-            color = tetrominoColors[type]!;
-          } else {
-            // Leere Zelle
-            color = Colors.grey.shade900;
-          }
-
-          return Container(
-            margin: const EdgeInsets.all(0.5),
-            decoration: BoxDecoration(
-              color: color,
-              borderRadius: BorderRadius.circular(2),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final cellSize = constraints.maxHeight / boardHeight;
+        return SizedBox(
+          width: cellSize * boardWidth,
+          height: constraints.maxHeight,
+          child: GridView.builder(
+            physics: const NeverScrollableScrollPhysics(), // kein Scrollen
+            gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: boardWidth,
             ),
-          );
-        },
-      ),
+            itemCount: boardWidth * boardHeight,
+            itemBuilder: (context, index) {
+              final Color color;
+
+              if (activeIndices.contains(index)) {
+                // Aktiver, fallender Stein
+                color = tetrominoColors[currentShape.type]!;
+              } else if (board.cells[index] != 0) {
+                // Eingefrorener Stein — Farbe aus dem gespeicherten Index
+                final type = TetrominoType.values[board.cells[index] - 1];
+                color = tetrominoColors[type]!;
+              } else {
+                // Leere Zelle
+                color = Colors.grey.shade900;
+              }
+
+              return Container(
+                margin: const EdgeInsets.all(0.5),
+                decoration: BoxDecoration(
+                  color: color,
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              );
+            },
+          ),
+        );
+      },
     );
   }
 }
