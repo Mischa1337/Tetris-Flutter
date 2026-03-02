@@ -99,12 +99,25 @@ class _GameScreenState extends State<GameScreen> {
 
             // ── Spielfeld + Seitenleiste ──────────────────────
             Expanded(
-              child: Center(
-                child: Padding(
-                  padding: const EdgeInsets.all(4),
-                  child: BoardWidget(
-                    board: _ctrl.board,
-                    currentShape: _ctrl.currentShape,
+              child: GestureDetector(
+                onTap: () => setState(() => _ctrl.rotate()),
+                onHorizontalDragEnd: (details) {
+                  if ((details.primaryVelocity ?? 0) < 0) {
+                    _ctrl.moveLeft();
+                  } else {
+                    _ctrl.moveRight();
+                  }
+                },
+                onVerticalDragEnd: (details) {
+                  if ((details.primaryVelocity ?? 0) > 0) _ctrl.drop();
+                },
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(4),
+                    child: BoardWidget(
+                      board: _ctrl.board,
+                      currentShape: _ctrl.currentShape,
+                    ),
                   ),
                 ),
               ),
