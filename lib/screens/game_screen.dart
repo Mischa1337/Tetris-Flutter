@@ -3,6 +3,7 @@ import 'package:tetris_app/logic/game_controller.dart';
 import 'package:tetris_app/logic/score_board.dart';
 import 'package:tetris_app/widgets/board_widget.dart';
 import 'package:tetris_app/widgets/next_piece_widget.dart';
+import 'package:tetris_app/screens/game_over_screen.dart';
 
 // StatefulWidget: hat einen veränderbaren State (den GameController)
 class GameScreen extends StatefulWidget {
@@ -31,6 +32,17 @@ class _GameScreenState extends State<GameScreen> {
       if (_ctrl.isGameOver && !_scoreSaved) {
         _scoreSaved = true;
         widget.scoreBoard.add(_ctrl.score, _ctrl.linesCleared);
+        if (mounted) {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (_) => GameOverScreen(
+                score: _ctrl.score,
+                playerName: widget.playerName,
+                scoreBoard: widget.scoreBoard,
+              ),
+            ),
+          );
+        }
       }
       setState(() {});
     };
@@ -96,33 +108,6 @@ class _GameScreenState extends State<GameScreen> {
                 ],
               ),
             ),
-
-            // ── Game Over Banner ──────────────────────────────
-            if (_ctrl.isGameOver)
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 12),
-                child: Column(
-                  children: [
-                    const Text(
-                      'GAME OVER',
-                      style: TextStyle(
-                        color: Colors.red,
-                        fontSize: 28,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    ElevatedButton(
-                      onPressed: () => setState(() {
-                        _scoreSaved = false;
-                        _ctrl.reset();
-                        _ctrl.start();
-                      }),
-                      child: const Text('Nochmal'),
-                    ),
-                  ],
-                ),
-              ),
 
             // ── Steuerbuttons (Mobile) ────────────────────────
             if (!_ctrl.isGameOver) _buildControls(),
