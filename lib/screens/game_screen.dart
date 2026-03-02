@@ -72,6 +72,17 @@ class _GameScreenState extends State<GameScreen> {
                   _infoBox('SCORE', '${_ctrl.score}'),
                   _infoBox('LEVEL', '${_ctrl.level}'),
                   _infoBox('LINES', '${_ctrl.linesCleared}'),
+                  // Next Piece
+                  Column(
+                    children: [
+                      const Text(
+                        'NEXT',
+                        style: TextStyle(color: Colors.white54, fontSize: 12),
+                      ),
+                      const SizedBox(height: 4),
+                      NextPieceWidget(nextShape: _ctrl.nextShape),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -88,21 +99,6 @@ class _GameScreenState extends State<GameScreen> {
                         board: _ctrl.board,
                         currentShape: _ctrl.currentShape,
                       ),
-                    ),
-                  ),
-                  // Seitenleiste: nächster Stein
-                  Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        const Text(
-                          'NEXT',
-                          style: TextStyle(color: Colors.white54, fontSize: 12),
-                        ),
-                        const SizedBox(height: 4),
-                        NextPieceWidget(nextShape: _ctrl.nextShape),
-                      ],
                     ),
                   ),
                 ],

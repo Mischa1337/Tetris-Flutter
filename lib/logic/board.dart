@@ -2,7 +2,7 @@ import 'tetromino_type.dart';
 import 'shape.dart';
 
 const int boardWidth = 10;
-const int boardHeight = 10;
+const int boardHeight = 20;
 
 class Board {
   // 0 = leer, 1-7 = Farbe des platzierten Steins
