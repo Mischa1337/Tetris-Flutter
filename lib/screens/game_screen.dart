@@ -4,6 +4,7 @@ import 'package:tetris_app/logic/score_board.dart';
 import 'package:tetris_app/widgets/board_widget.dart';
 import 'package:tetris_app/widgets/next_piece_widget.dart';
 import 'package:tetris_app/screens/game_over_screen.dart';
+import 'package:tetris_app/logic/game_settings.dart';
 
 // StatefulWidget: hat einen veränderbaren State (den GameController)
 class GameScreen extends StatefulWidget {
@@ -11,9 +12,11 @@ class GameScreen extends StatefulWidget {
     super.key,
     required this.playerName,
     required this.scoreBoard,
+    required this.settings,
   });
   final String playerName;
   final ScoreBoard scoreBoard;
+  final GameSettings settings;
 
   @override
   State<GameScreen> createState() => _GameScreenState();
@@ -39,6 +42,7 @@ class _GameScreenState extends State<GameScreen> {
                 score: _ctrl.score,
                 playerName: widget.playerName,
                 scoreBoard: widget.scoreBoard,
+                settings: widget.settings,
               ),
             ),
           );
@@ -100,17 +104,25 @@ class _GameScreenState extends State<GameScreen> {
             // ── Spielfeld + Seitenleiste ──────────────────────
             Expanded(
               child: GestureDetector(
-                onTap: () => setState(() => _ctrl.rotate()),
-                onHorizontalDragEnd: (details) {
-                  if ((details.primaryVelocity ?? 0) < 0) {
-                    _ctrl.moveLeft();
-                  } else {
-                    _ctrl.moveRight();
-                  }
-                },
-                onVerticalDragEnd: (details) {
-                  if ((details.primaryVelocity ?? 0) > 0) _ctrl.drop();
-                },
+                onTap: widget.settings.controlMode != ControlMode.dpad
+                    ? () => setState(() => _ctrl.rotate())
+                    : null,
+                onHorizontalDragEnd:
+                    widget.settings.controlMode != ControlMode.dpad
+                    ? (details) {
+                        if ((details.primaryVelocity ?? 0) < 0) {
+                          _ctrl.moveLeft();
+                        } else {
+                          _ctrl.moveRight();
+                        }
+                      }
+                    : null,
+                onVerticalDragEnd:
+                    widget.settings.controlMode != ControlMode.dpad
+                    ? (details) {
+                        if ((details.primaryVelocity ?? 0) > 0) _ctrl.drop();
+                      }
+                    : null,
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(4),
@@ -124,7 +136,9 @@ class _GameScreenState extends State<GameScreen> {
             ),
 
             // ── Steuerbuttons (Mobile) ────────────────────────
-            if (!_ctrl.isGameOver) _buildControls(),
+            if (!_ctrl.isGameOver &&
+                widget.settings.controlMode != ControlMode.gesture)
+              _buildControls(),
           ],
         ),
       ),

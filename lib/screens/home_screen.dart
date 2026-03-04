@@ -2,15 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:tetris_app/screens/game_screen.dart';
 import 'package:tetris_app/logic/score_board.dart';
 import 'package:tetris_app/screens/highscore_screen.dart';
+import 'package:tetris_app/logic/game_settings.dart';
+import 'package:tetris_app/screens/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final String playerName;
   final ScoreBoard scoreBoard;
+  final GameSettings settings;
 
   const HomeScreen({
     super.key,
     required this.playerName,
     required this.scoreBoard,
+    required this.settings,
   });
 
   @override
@@ -45,6 +49,7 @@ class HomeScreen extends StatelessWidget {
                         builder: (_) => GameScreen(
                           playerName: playerName,
                           scoreBoard: scoreBoard,
+                          settings: settings,
                         ),
                       ),
                     );
@@ -64,6 +69,20 @@ class HomeScreen extends StatelessWidget {
                     );
                   },
                   child: const Text('Highscore'),
+                ),
+              ),
+              const SizedBox(height: 16),
+              SizedBox(
+                width: double.infinity,
+                child: OutlinedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (_) => SettingsScreen(settings: settings),
+                      ),
+                    );
+                  },
+                  child: const Text('Einstellungen'),
                 ),
               ),
             ],

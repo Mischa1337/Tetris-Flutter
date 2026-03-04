@@ -2,17 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:tetris_app/logic/score_board.dart';
 import 'package:tetris_app/screens/game_screen.dart';
 import 'package:tetris_app/screens/home_screen.dart';
+import 'package:tetris_app/logic/game_settings.dart';
 
 class GameOverScreen extends StatelessWidget {
   final int score;
   final String playerName;
   final ScoreBoard scoreBoard;
+  final GameSettings settings;
 
   const GameOverScreen({
     super.key,
     required this.score,
     required this.playerName,
     required this.scoreBoard,
+    required this.settings,
   });
 
   @override
@@ -44,6 +47,7 @@ class GameOverScreen extends StatelessWidget {
                         builder: (_) => GameScreen(
                           playerName: playerName,
                           scoreBoard: scoreBoard,
+                          settings: settings,
                         ),
                       ),
                     );
@@ -61,6 +65,7 @@ class GameOverScreen extends StatelessWidget {
                         builder: (_) => HomeScreen(
                           playerName: playerName,
                           scoreBoard: scoreBoard,
+                          settings: settings,
                         ),
                       ),
                       (route) => route.isFirst,
