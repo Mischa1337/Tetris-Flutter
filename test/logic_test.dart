@@ -3,11 +3,13 @@ import 'package:tetris_app/logic/board.dart';
 import 'package:tetris_app/logic/shape.dart';
 import 'package:tetris_app/logic/tetromino_type.dart';
 import 'package:tetris_app/logic/game_controller.dart';
+import 'package:tetris_app/logic/score_board.dart';
 
 void main() {
   // ──────────────────────────────────────────────
   // Board Tests
   // ──────────────────────────────────────────────
+  final ctrl = GameController(scoreBoard: ScoreBoard());
   group('Board', () {
     test('startet leer', () {
       final board = Board();
@@ -86,7 +88,9 @@ void main() {
 
     test('rotate springt nach 4 wieder auf 0', () {
       var shape = Shape(TetrominoType.T);
-      for (int i = 0; i < 4; i++) { shape = shape.rotate(); }
+      for (int i = 0; i < 4; i++) {
+        shape = shape.rotate();
+      }
       expect(shape.rotation, 0);
     });
 
@@ -102,7 +106,6 @@ void main() {
   // ──────────────────────────────────────────────
   group('GameController', () {
     test('startet mit Score 0, Level 1', () {
-      final ctrl = GameController();
       expect(ctrl.score, 0);
       expect(ctrl.level, 1);
       expect(ctrl.linesCleared, 0);
@@ -110,7 +113,6 @@ void main() {
     });
 
     test('reset setzt alles zurück', () {
-      final ctrl = GameController();
       ctrl.score = 500;
       ctrl.level = 3;
       ctrl.reset();
@@ -120,21 +122,18 @@ void main() {
     });
 
     test('moveLeft bewegt Stein nach links', () {
-      final ctrl = GameController();
       final startCol = ctrl.currentShape.anchorCol;
       ctrl.moveLeft();
       expect(ctrl.currentShape.anchorCol, startCol - 1);
     });
 
     test('moveRight bewegt Stein nach rechts', () {
-      final ctrl = GameController();
       final startCol = ctrl.currentShape.anchorCol;
       ctrl.moveRight();
       expect(ctrl.currentShape.anchorCol, startCol + 1);
     });
 
     test('pause stoppt Ticker', () {
-      final ctrl = GameController();
       ctrl.start();
       ctrl.pause();
       expect(ctrl.isPaused, true);
@@ -142,7 +141,6 @@ void main() {
     });
 
     test('resume setzt Spiel fort', () {
-      final ctrl = GameController();
       ctrl.start();
       ctrl.pause();
       ctrl.resume();

@@ -24,17 +24,15 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   // Der Controller lebt hier — genau so lang wie der Screen
-  final GameController _ctrl = GameController();
-  bool _scoreSaved = false;
+  late final GameController _ctrl;
 
   @override
   void initState() {
     super.initState();
+    _ctrl = GameController(scoreBoard: widget.scoreBoard);
     // onUpdate: nach jedem Tick → setState() → Flutter zeichnet neu
     _ctrl.onUpdate = () {
-      if (_ctrl.isGameOver && !_scoreSaved) {
-        _scoreSaved = true;
-        widget.scoreBoard.add(_ctrl.score, _ctrl.linesCleared);
+      if (_ctrl.isGameOver) {
         if (mounted) {
           Navigator.of(context).push(
             MaterialPageRoute(

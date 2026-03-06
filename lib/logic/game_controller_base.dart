@@ -25,17 +25,18 @@ abstract class GameControllerBase {
   // UI registriert hier einen Callback um setState() aufzurufen
   VoidCallback? onUpdate;
 
-  Shape randomShape() =>
-      Shape(TetrominoType.values[Random().nextInt(TetrominoType.values.length)]);
+  Shape randomShape() => Shape(
+    TetrominoType.values[Random().nextInt(TetrominoType.values.length)],
+  );
 
   // Abstrakte Schnittstellen für mixin-übergreifende Aufrufe
-  void start();                    // implementiert von GameLoopMixin
-  void landPiece();                // implementiert von PieceMixin
+  void start(); // implementiert von GameLoopMixin
+  void landPiece(); // implementiert von PieceMixin
   void addScore(int clearedLines); // implementiert von ScoringMixin
 
-  GameControllerBase()
+  GameControllerBase({required ScoreBoard scoreBoard})
     : board = Board(),
-      scoreBoard = ScoreBoard(),
+      scoreBoard = scoreBoard,
       currentShape = Shape(TetrominoType.values[Random().nextInt(7)]),
       nextShape = Shape(TetrominoType.values[Random().nextInt(7)]),
       score = 0,
