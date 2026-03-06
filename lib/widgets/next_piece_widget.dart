@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_app/logic/shape.dart';
 import 'package:tetris_app/logic/tetromino_type.dart';
-import 'package:tetris_app/widgets/board_widget.dart'; // tetrominoColors
+import 'package:tetris_app/constants/tetromino_colors.dart';
 
 class NextPieceWidget extends StatelessWidget {
   final Shape nextShape;
