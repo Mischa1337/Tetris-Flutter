@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:tetris_app/logic/board.dart';
-import 'package:tetris_app/logic/shape.dart';
-import 'package:tetris_app/logic/tetromino_type.dart';
+import 'package:tetris_app/models/shape.dart';
+import 'package:tetris_app/models/tetromino_type.dart';
 import 'package:tetris_app/constants/tetromino_colors.dart';
 
 class BoardWidget extends StatelessWidget {

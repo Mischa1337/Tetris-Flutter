@@ -1,5 +1,5 @@
-import 'tetromino_type.dart';
-import 'shape.dart';
+import '../models/tetromino_type.dart';
+import '../models/shape.dart';
 
 const int boardWidth = 10;
 const int boardHeight = 20;

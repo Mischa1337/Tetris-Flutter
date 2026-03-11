@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:tetris_app/screens/game_screen.dart';
-import 'package:tetris_app/logic/score_board.dart';
+import 'package:tetris_app/models/score_board.dart';
 import 'package:tetris_app/screens/highscore_screen.dart';
-import 'package:tetris_app/logic/game_settings.dart';
+import 'package:tetris_app/models/game_settings.dart';
 import 'package:tetris_app/screens/settings_screen.dart';
 
 class HomeScreen extends StatelessWidget {

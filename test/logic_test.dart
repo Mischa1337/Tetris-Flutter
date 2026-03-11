@@ -1,9 +1,9 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:tetris_app/logic/board.dart';
-import 'package:tetris_app/logic/shape.dart';
-import 'package:tetris_app/logic/tetromino_type.dart';
+import 'package:tetris_app/models/shape.dart';
+import 'package:tetris_app/models/tetromino_type.dart';
 import 'package:tetris_app/logic/game_controller.dart';
-import 'package:tetris_app/logic/score_board.dart';
+import 'package:tetris_app/models/score_board.dart';
 
 void main() {
   // ──────────────────────────────────────────────

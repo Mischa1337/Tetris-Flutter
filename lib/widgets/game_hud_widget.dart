@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris_app/logic/shape.dart';
+import 'package:tetris_app/models/shape.dart';
 import 'package:tetris_app/widgets/next_piece_widget.dart';
 
 class GameHudWidget extends StatelessWidget {
@@ -10,7 +10,7 @@ class GameHudWidget extends StatelessWidget {
     required this.lines,
     required this.nextShape,
     required this.isPaused,
-    required this.onPauseTop,
+    required this.onPauseTap,
   });
 
   final int score;
@@ -18,7 +18,7 @@ class GameHudWidget extends StatelessWidget {
   final int lines;
   final Shape nextShape;
   final bool isPaused;
-  final VoidCallback onPauseTop;
+  final VoidCallback onPauseTap;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +46,7 @@ class GameHudWidget extends StatelessWidget {
               color: Colors.white,
               size: 48,
             ),
-            onPressed: onPauseTop,
+            onPressed: onPauseTap,
           ),
         ],
       ),

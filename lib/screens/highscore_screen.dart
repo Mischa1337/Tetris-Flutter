@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris_app/logic/score_board.dart';
+import 'package:tetris_app/models/score_board.dart';
 
 class HighscoreScreen extends StatelessWidget {
   final ScoreBoard scoreBoard;

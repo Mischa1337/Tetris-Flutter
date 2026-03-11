@@ -3,9 +3,9 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 
 import 'package:tetris_app/logic/board.dart';
-import 'package:tetris_app/logic/score_board.dart';
-import 'package:tetris_app/logic/shape.dart';
-import 'package:tetris_app/logic/tetromino_type.dart';
+import 'package:tetris_app/models/score_board.dart';
+import 'package:tetris_app/models/shape.dart';
+import 'package:tetris_app/models/tetromino_type.dart';
 
 abstract class GameControllerBase extends ChangeNotifier {
   final Board board;

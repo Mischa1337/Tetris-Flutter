@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris_app/logic/game_settings.dart';
+import 'package:tetris_app/models/game_settings.dart';
 
 class SettingsScreen extends StatefulWidget {
   final GameSettings settings;

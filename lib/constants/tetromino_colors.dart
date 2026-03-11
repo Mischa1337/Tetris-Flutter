@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tetris_app/logic/tetromino_type.dart';
+import 'package:tetris_app/models/tetromino_type.dart';
 
 // Klassische Tetris-Farben für jeden Steintyp
 const Map<TetrominoType, Color> tetrominoColors = {

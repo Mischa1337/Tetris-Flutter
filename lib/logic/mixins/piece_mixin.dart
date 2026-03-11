@@ -23,6 +23,7 @@ mixin PieceMixin on GameControllerBase {
       isGameOver = true;
       ticker?.cancel();
       scoreBoard.add(score, linesCleared);
+      scoreBoard.save();
     }
   }
 }
