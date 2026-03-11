@@ -1,3 +1,6 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
 class ScoreEntry {
   final int score;
   final int lines;
