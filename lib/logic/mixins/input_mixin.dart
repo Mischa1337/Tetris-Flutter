@@ -5,21 +5,21 @@ mixin InputMixin on GameControllerBase {
     if (isPaused || isGameOver) return;
     final moved = currentShape.moveLeft();
     if (board.isValidPosition(moved)) currentShape = moved;
-    onUpdate?.call();
+    notifyListeners();
   }
 
   void moveRight() {
     if (isPaused || isGameOver) return;
     final moved = currentShape.moveRight();
     if (board.isValidPosition(moved)) currentShape = moved;
-    onUpdate?.call();
+    notifyListeners();
   }
 
   void rotate() {
     if (isPaused || isGameOver) return;
     final rotated = currentShape.rotate();
     if (board.isValidPosition(rotated)) currentShape = rotated;
-    onUpdate?.call();
+    notifyListeners();
   }
 
   // Stein sofort bis ganz nach unten fallen lassen
@@ -29,6 +29,6 @@ mixin InputMixin on GameControllerBase {
       currentShape = currentShape.moveDown();
     }
     landPiece();
-    onUpdate?.call();
+    notifyListeners();
   }
 }

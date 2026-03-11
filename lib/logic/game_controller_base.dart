@@ -7,7 +7,7 @@ import 'package:tetris_app/logic/score_board.dart';
 import 'package:tetris_app/logic/shape.dart';
 import 'package:tetris_app/logic/tetromino_type.dart';
 
-abstract class GameControllerBase {
+abstract class GameControllerBase extends ChangeNotifier {
   final Board board;
   Shape currentShape;
   Shape nextShape;
@@ -21,9 +21,6 @@ abstract class GameControllerBase {
 
   // Kein Unterstrich: muss von Mixins in anderen Dateien zugreifbar sein
   Timer? ticker;
-
-  // UI registriert hier einen Callback um setState() aufzurufen
-  VoidCallback? onUpdate;
 
   Shape randomShape() => Shape(
     TetrominoType.values[Random().nextInt(TetrominoType.values.length)],

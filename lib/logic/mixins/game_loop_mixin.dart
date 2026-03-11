@@ -19,6 +19,7 @@ mixin GameLoopMixin on GameControllerBase {
     isPaused = true;
     ticker?.cancel();
     ticker = null;
+    notifyListeners();
   }
 
   // Setzt fort -> neuer Timer mit aktueller Geschwindigkeit
@@ -26,6 +27,7 @@ mixin GameLoopMixin on GameControllerBase {
     if (!isPaused || isGameOver) return;
     isPaused = false;
     start();
+    notifyListeners();
   }
 
   // Wird vom Timer aufgerufen - Herzstück der Spielschleife
@@ -37,6 +39,6 @@ mixin GameLoopMixin on GameControllerBase {
     } else {
       landPiece();
     }
-    onUpdate?.call(); // UI neu zeichnen
+    notifyListeners();
   }
 }
